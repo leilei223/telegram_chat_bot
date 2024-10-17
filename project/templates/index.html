@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Logs</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 左侧用户列表 -->
+        <div class="user-list">
+            <h2>用户列表</h2>
+            <ul id="userList">
+                {% for user in users %}
+                <li onclick="showChat('{{ user.user_id }}')">
+                    <div class="user-icon">{{ user.username[0] }}</div>
+                    <div class="user-info">
+                        <p class="username">{{ user.username }}</p>
+                        <p class="last-message">{{ user.last_message[:20] }}...</p>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+        <!-- 右侧聊天内容 -->
+        <div class="chat-box">
+            <div id="chatDetails">
+                <p class="welcome-message">选择一个用户查看聊天记录</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript 函数，用于显示特定用户的聊天记录
+        function showChat(userId) {
+            fetch(`/chat/${userId}`)
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('chatDetails').innerHTML = html;
+                });
+        }
+    </script>
+</body>
+</html>

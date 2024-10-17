@@ -1,0 +1,22 @@
+<div class="user-header">
+    <div class="user-icon-large">{{ chats[0].username[0] }}</div>
+    <div class="user-info-large">
+        <p class="username-large">{{ chats[0].username }}</p>
+        <p class="user-id">ID: {{ chats[0].user_id }}</p>
+    </div>
+</div>
+
+{% set prev_date = None %}
+{% for chat in chats %}
+    {% if chat.formatted_date != prev_date %}
+        <!-- 显示日期标签，仅在日期变化时显示 -->
+        <div class="date-label">{{ chat.formatted_date }}</div>
+    {% endif %}
+    
+    <div class="message {% if loop.index % 2 == 0 %}user{% else %}bot{% endif %}">
+        <p class="message-text">{{ chat.message if loop.index % 2 == 0 else chat.reply }}</p>
+        <span class="timestamp">{{ chat.timestamp }}</span>
+    </div>
+
+    {% set prev_date = chat.formatted_date %}
+{% endfor %}
