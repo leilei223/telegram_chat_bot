@@ -147,8 +147,7 @@ Supervisor将帮助我们在后台管理和自动重启`app.py`和`bot.py`。
 在项目根目录中创建一个名为`supervisord.conf`的文件，内容如下：
 
 ```
-ini
-复制代码
+
 [supervisord]
 nodaemon=true
 
